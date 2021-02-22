@@ -4,7 +4,7 @@ USAGE="Usage: run_jupyter_notebooks -i <image> -u <user list> -p <admin password
 \n
 This command generates docker containers based on a jupyter notebook container for each user\n
 \n
--i image name. If not present yet it will be downloaded from docker hub\n
+-i image name. If not present yet it will be downloaded from docker hub. Should be based on a jupyter notebook image.\n
 -u user list. Tab delimited list of users with three columns: port, user name, password\n
 -p admin password. Password used for the admin container."
 
@@ -47,10 +47,6 @@ if [ "$MASTERPW" == "" ]; then echo "option -p is missing, but required">&2 && e
 
 # default values
 if [ "$IMAGE" == "" ]; then OUTDIR=jupyter/base-notebook; fi
-#
-# IMAGE=geertvangeest/ngs-longreads:v1
-# USERLIST=$1
-# MASTERPW=$2
 
 # create general volume that will be populated with read-only data
 docker volume create data
@@ -69,7 +65,6 @@ do
   # generate container for each user
   # mount user volume, data volume (general, read only) and group work volume (general, read and write)
   # the permissions of general volumes (data and group work) need to be changed with the master container (this can probably be coded as well)
-  # the --user, -e and -w commands are needed to change the user
   docker run \
   -d \
   --rm \
