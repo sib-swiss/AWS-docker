@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+IMAGE=geertvangeest/ngs-longreads:v1
 USERLIST=$1
 MASTERPW=$2
 
@@ -29,7 +30,7 @@ do
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
   -p $port:8888 \
-  jupyter/base-notebook \
+  $IMAGE \
   start-notebook.sh \
   --NotebookApp.password=$HASH
 done
@@ -48,7 +49,7 @@ docker run \
 --user root \
 -e GRANT_SUDO=yes \
 -p 10000:8888 \
-jupyter/base-notebook \
+$IMAGE \
 start-notebook.sh \
 --NotebookApp.password=$HASH
 
