@@ -8,7 +8,7 @@ This command generates docker containers based on a jupyter notebook container f
 -u user list. Tab delimited list of users with three columns: port, user name, password\n
 -p admin password. Password used for the admin container."
 
-while getopts ":l:o:" opt
+while getopts ":i:u:p:" opt
 do
   case $opt in
     i)
@@ -47,7 +47,7 @@ if [ "$MASTERPW" == "" ]; then echo "option -p is missing, but required">&2 && e
 
 # default values
 if [ "$IMAGE" == "" ]; then OUTDIR=jupyter/base-notebook; fi
-# 
+#
 # IMAGE=geertvangeest/ngs-longreads:v1
 # USERLIST=$1
 # MASTERPW=$2
