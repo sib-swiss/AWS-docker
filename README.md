@@ -49,3 +49,13 @@ run_jupyter_notebooks \
 ```
 
 The admin container (i.e. with sudo rights) is available from port 10000. The regular users at the ports specified in the tab-delimited text file. 
+
+## Other useful scripts 
+
+You can check out a user volume (i.e. not the group work volume, nor the data volume) with `mount_user_volume.sh`:
+
+```sh
+./mount_user_volume.sh user01
+```
+
+This will create a basic ubuntu container with the volume of user01 mounted to `/user01`.
