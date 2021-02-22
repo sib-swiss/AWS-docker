@@ -37,7 +37,7 @@ Prepare a tab-delimited user list with three columns: port, username and passwor
 10002	user02	pwuserb
 ```
 
-Prepare a container. This container should be based on a jupyter notebook container, e.g. [jupyter/base-notebook](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-base-notebook)
+Prepare an iamge that you want to use for the course. This image should be based on a jupyter notebook container, e.g. [jupyter/base-notebook](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-base-notebook), and should be availabe from `dockerhub`. 
 
 Run the script `run_jupyter_notebooks`:
 
