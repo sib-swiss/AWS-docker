@@ -25,7 +25,7 @@ do
   -d \
   --rm \
   --name $user \
-  --mount source=$user,target=/home/$user \
+  --mount source=$user,target=/home/jovyan \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
   -p $port:8888 \

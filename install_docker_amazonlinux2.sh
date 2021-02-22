@@ -1,8 +1,9 @@
-sudo yum update -y
-sudo amazon-linux-extras install docker
-sudo service docker start
-sudo usermod -a -G docker ec2-user
-# logout and login again
+#!bin/bash
 
-sudo yum install python3.7
-sudo pip3 install notebook
+curl https://get.docker.com | sh
+sudo usermod -a -G docker ubuntu
+sudo service docker start
+
+sudo apt-get update
+sudo apt-get install -y python3-pip
+pip3 install notebook
