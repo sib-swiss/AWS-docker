@@ -1,8 +1,56 @@
 #!/usr/bin/env bash
 
-IMAGE=geertvangeest/ngs-longreads:v1
-USERLIST=$1
-MASTERPW=$2
+USAGE="Usage: run_jupyter_notebooks -i <image> -u <user list> -p <admin password>\n
+\n
+This command generates docker containers based on a jupyter notebook container for each user\n
+\n
+-i image name. If not present yet it will be downloaded from docker hub\n
+-u user list. Tab delimited list of users with three columns: port, user name, password\n
+-p admin password. Password used for the admin container."
+
+while getopts ":l:o:" opt
+do
+  case $opt in
+    i)
+      IMAGE=$OPTARG
+      ;;
+    u)
+      USERLIST=$OPTARG
+      ;;
+    p)
+      MASTERPW=$OPTARG
+      ;;
+    \?)
+      echo -e "Invalid option: -$OPTARG \n" >&2
+      echo -e $USAGE >&2
+      exit 1
+      ;;
+    :)
+      echo -e "Option -$OPTARG requires an argument. \n"
+      echo -e $USAGE >&2
+      exit 1
+      ;;
+  esac
+done
+
+# return usage if no options are passed
+if [ $OPTIND -eq 1 ]
+then
+  echo -e "No options were passed. \n" >&2
+  echo -e $USAGE >&2
+  exit 1
+fi
+
+# required options
+if [ "$USERLIST" == "" ]; then echo "option -u is missing, but required">&2 && exit 1; fi
+if [ "$MASTERPW" == "" ]; then echo "option -p is missing, but required">&2 && exit 1; fi
+
+# default values
+if [ "$IMAGE" == "" ]; then OUTDIR=jupyter/base-notebook; fi
+# 
+# IMAGE=geertvangeest/ngs-longreads:v1
+# USERLIST=$1
+# MASTERPW=$2
 
 # create general volume that will be populated with read-only data
 docker volume create data
@@ -57,3 +105,6 @@ start-notebook.sh \
 # docker stop $(docker ps -aq)
 # remove all volumes:
 # docker volume rm $(docker volume ls -q)
+# check a user-specific volume with:
+# USER=user01
+# docker run -it --rm --mount source=$USER,target=/$USER -w /$USER ubuntu
