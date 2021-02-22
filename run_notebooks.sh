@@ -12,7 +12,7 @@ docker volume create group
 cat $USERLIST | tr -d '\015\040' | while read port user password
 do
   # generate hash from password
-  HASH=`./generate_pw_hash.py -p $password`
+  HASH=`python3 ./generate_pw_hash.py -p $password`
 
   # create user volume. If the container crashes the volume keeps existing.
   docker volume create $user
@@ -39,7 +39,7 @@ do
 done
 
 # generate hash for master password
-HASH=`./generate_pw_hash.py -p $MASTERPW`
+HASH=`python3 ./generate_pw_hash.py -p $MASTERPW`
 
 # generate admin container
 # the option -e GRANT_SUDO=yes is required to e.g. change permissions in the root directory
