@@ -28,10 +28,6 @@ do
   --mount source=$user,target=/home/$user \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
-  --user root \
-  -e NB_USER=$user \
-  -w /home/$user \
-  -e CHOWN_HOME=yes \
   -p $port:8888 \
   jupyter/base-notebook \
   start-notebook.sh \
