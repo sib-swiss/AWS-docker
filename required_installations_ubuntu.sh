@@ -7,3 +7,7 @@ sudo service docker start
 sudo apt-get update
 sudo apt-get install -y python3-pip
 pip3 install notebook
+
+git clone https://github.com/GeertvanGeest/AWS-docker.git
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout notebook.key -out notebook.pem

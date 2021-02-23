@@ -72,10 +72,13 @@ do
   --mount source=$user,target=/home/jovyan \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
+  -v /home/ubuntu/:/etc/ssl/notebook \
   -p $port:8888 \
   $IMAGE \
   start-notebook.sh \
-  --NotebookApp.password=$HASH
+  --NotebookApp.password=$HASH \
+  --NotebookApp.keyfile=/etc/ssl/notebook/notebook.key \
+  --NotebookApp.certfile=/etc/ssl/notebook/notebook.pem
 done
 
 # generate hash for master password
@@ -89,12 +92,15 @@ docker run \
 --name admin \
 --mount source=data,target=/home/jovyan/data \
 --mount source=group,target=/home/jovyan/group_work \
+-v /home/ubuntu/:/etc/ssl/notebook \
 --user root \
 -e GRANT_SUDO=yes \
 -p 10000:8888 \
 $IMAGE \
 start-notebook.sh \
---NotebookApp.password=$HASH
+--NotebookApp.password=$HASH \
+--NotebookApp.keyfile=/etc/ssl/notebook/notebook.key \
+--NotebookApp.certfile=/etc/ssl/notebook/notebook.pem
 
 # stop all containers:
 # docker stop $(docker ps -aq)
