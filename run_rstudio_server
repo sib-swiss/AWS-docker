@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+
+USAGE="Usage: run_rstudio_server -i <image> -u <user list> -p <admin password>\n
+\n
+This command generates docker containers based on a rstudio server container for each user\n
+\n
+-i image name. If not present yet it will be downloaded from docker hub. Should be based on a jupyter notebook image.\n
+-u user list. Tab delimited list of users with three columns: port, user name, password\n
+-p admin password. Password used for the admin container."
+
+while getopts ":i:u:p:" opt
+do
+  case $opt in
+    i)
+      IMAGE=$OPTARG
+      ;;
+    u)
+      USERLIST=$OPTARG
+      ;;
+    p)
+      MASTERPW=$OPTARG
+      ;;
+    \?)
+      echo -e "Invalid option: -$OPTARG \n" >&2
+      echo -e $USAGE >&2
+      exit 1
+      ;;
+    :)
+      echo -e "Option -$OPTARG requires an argument. \n"
+      echo -e $USAGE >&2
+      exit 1
+      ;;
+  esac
+done
+
+# return usage if no options are passed
+if [ $OPTIND -eq 1 ]
+then
+  echo -e "No options were passed. \n" >&2
+  echo -e $USAGE >&2
+  exit 1
+fi
+
+# required options
+if [ "$USERLIST" == "" ]; then echo "option -u is missing, but required">&2 && exit 1; fi
+if [ "$MASTERPW" == "" ]; then echo "option -p is missing, but required">&2 && exit 1; fi
+
+# default values
+if [ "$IMAGE" == "" ]; then OUTDIR=rocker/rstudio; fi
+
+# create general volume that will be populated with read-only data
+docker volume create data
+# create general volume for group work
+docker volume create group
+
+# remove carriage returns and spaces and pipe to while loop
+cat $USERLIST | tr -d '\015\040' | while read port user password
+do
+    # create user volume. If the container crashes the volume keeps existing.
+  docker volume create $user
+
+  # generate container for each user
+  # mount user volume, data volume (general, read only) and group work volume (general, read and write)
+  # the permissions of general volumes (data and group work) need to be changed with the master container (this can probably be coded as well)
+  docker run \
+  --rm \
+  -d \
+  -p $port:8787 \
+  --name $user \
+  -e PASSWORD=$password \
+  --mount source=$user,target=/home/rstudio \
+  --mount source=data,target=/data,readonly \
+  --mount source=group,target=/group_work \
+  $IMAGE
+done
+
+docker run \
+--rm \
+-d \
+-e ROOT=TRUE \
+-p 10000:8787 \
+--name admin \
+-e PASSWORD=$MASTERPW \
+--mount source=data,target=/home/rstudio/data \
+--mount source=group,target=/home/rstudio/group_work \
+$IMAGE
+
+# stop all containers:
+# docker stop $(docker ps -aq)
+# remove all volumes:
+# docker volume rm $(docker volume ls -q)
+# check a user-specific volume with:
+# USER=user01
+# docker run -it --rm --mount source=$USER,target=/$USER -w /$USER ubuntu
