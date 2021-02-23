@@ -66,7 +66,7 @@ docker run \
 --mount source=group,target=/group_work \
 --user root \
 -e GRANT_SUDO=yes \
--p 9999:8888 \
+-p 10000:8888 \
 $IMAGE \
 start-notebook.sh \
 --NotebookApp.password=$HASH
