@@ -46,7 +46,7 @@ if [ "$USERLIST" == "" ]; then echo "option -u is missing, but required">&2 && e
 if [ "$MASTERPW" == "" ]; then echo "option -p is missing, but required">&2 && exit 1; fi
 
 # default values
-if [ "$IMAGE" == "" ]; then OUTDIR=rocker/rstudio; fi
+if [ "$IMAGE" == "" ]; then IMAGE=rocker/rstudio; fi
 
 # create general volume that will be populated with read-only data
 docker volume create data
