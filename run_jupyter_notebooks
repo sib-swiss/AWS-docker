@@ -65,6 +65,7 @@ docker run \
 --mount source=data,target=/data \
 --mount source=group,target=/home/jovyan/group_work \
 --user root \
+-e CHOWN_EXTRA="/home/jovyan/group_work" \
 -e GRANT_SUDO=yes \
 -e JUPYTER_ENABLE_LAB=yes \
 -p 10000:8888 \
