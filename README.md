@@ -14,7 +14,7 @@ sudo service docker start
 
 You can add the above code to the code run at initialisation. Otherwise, logout and login again to be able use `docker` without `sudo`.
 
-Also install python3, pip and notebook:
+Also install python3, pip and jupyter_server:
 
 ```sh
 sudo apt-get update
@@ -57,7 +57,7 @@ Prepare an image that you want to use for the course. This image should be based
 Run the script `run_rstudio_server`:
 
 ```sh
-run_jupyter_notebooks \
+run_rstudio_server \
 -i rocker/rstudio \
 -u examples/user_list_test.txt \
 -p test1234
