@@ -63,7 +63,7 @@ docker run \
 -d \
 --name admin \
 --mount source=data,target=/data \
---mount source=group,target=/group_work \
+--mount source=group,target=/home/jovyan/group_work \
 --user root \
 -e GRANT_SUDO=yes \
 -e JUPYTER_ENABLE_LAB=yes \
@@ -90,7 +90,7 @@ do
   --name $user \
   --mount source=$user,target=/home/jovyan \
   --mount source=data,target=/data,readonly \
-  --mount source=group,target=/group_work \
+  --mount source=group,target=/home/jovyan/group_work \
   -e JUPYTER_ENABLE_LAB=yes \
   -p $port:8888 \
   $IMAGE \
