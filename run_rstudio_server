@@ -53,6 +53,17 @@ docker volume create data
 # create general volume for group work
 docker volume create group
 
+docker run \
+--rm \
+-d \
+-e ROOT=TRUE \
+-p 10000:8787 \
+--name admin \
+-e PASSWORD=$MASTERPW \
+--mount source=data,target=/home/rstudio/data \
+--mount source=group,target=/home/rstudio/group_work \
+$IMAGE
+
 # remove carriage returns and spaces and pipe to while loop
 cat $USERLIST | tr -d '\015\040' | while read port user password
 do
@@ -73,22 +84,3 @@ do
   --mount source=group,target=/group_work \
   $IMAGE
 done
-
-docker run \
---rm \
--d \
--e ROOT=TRUE \
--p 10000:8787 \
---name admin \
--e PASSWORD=$MASTERPW \
---mount source=data,target=/home/rstudio/data \
---mount source=group,target=/home/rstudio/group_work \
-$IMAGE
-
-# stop all containers:
-# docker stop $(docker ps -aq)
-# remove all volumes:
-# docker volume rm $(docker volume ls -q)
-# check a user-specific volume with:
-# USER=user01
-# docker run -it --rm --mount source=$USER,target=/$USER -w /$USER ubuntu

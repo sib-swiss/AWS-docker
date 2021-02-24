@@ -66,6 +66,7 @@ docker run \
 --mount source=group,target=/group_work \
 --user root \
 -e GRANT_SUDO=yes \
+-e JUPYTER_ENABLE_LAB=yes \
 -p 10000:8888 \
 $IMAGE \
 start-notebook.sh \
@@ -90,6 +91,7 @@ do
   --mount source=$user,target=/home/jovyan \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
+  -e JUPYTER_ENABLE_LAB=yes \
   -p $port:8888 \
   $IMAGE \
   start-notebook.sh \
