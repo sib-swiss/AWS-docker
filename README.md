@@ -57,7 +57,7 @@ Prepare an image that you want to use for the course. This image should be based
 Run the script `run_rstudio_server`:
 
 ```sh
-run_jupyter_notebooks \
+run_rstudio_server \
 -i rocker/rstudio \
 -u examples/user_list_test.txt \
 -p test1234
