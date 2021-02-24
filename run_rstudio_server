@@ -57,7 +57,7 @@ docker run \
 --rm \
 -d \
 -e ROOT=TRUE \
--p 10000:8787 \
+-p 9000:8787 \
 --name admin \
 -e PASSWORD=$MASTERPW \
 --mount source=data,target=/home/rstudio/data \
