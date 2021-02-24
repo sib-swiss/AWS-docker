@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from notebook.auth import passwd
+# from notebook.auth import passwd
+from jupyter_server.auth import passwd
 import argparse
 
 if __name__ == "__main__":

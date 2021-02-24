@@ -70,7 +70,7 @@ docker run \
 -p 10000:8888 \
 $IMAGE \
 start-notebook.sh \
---NotebookApp.password=$HASH
+--ServerApp.password=$HASH
 
 # remove carriage returns and spaces and pipe to while loop
 cat $USERLIST | tr -d '\015\040' | while read port user password
@@ -95,7 +95,7 @@ do
   -p $port:8888 \
   $IMAGE \
   start-notebook.sh \
-  --NotebookApp.password=$HASH
+  --ServerApp.password=$HASH
 done
 
 # stop all containers:
@@ -107,5 +107,5 @@ done
 # docker run -it --rm --mount source=$USER,target=/$USER -w /$USER ubuntu
 
 # to add https:
-# --NotebookApp.keyfile=/etc/ssl/notebook/notebook.key \
-# --NotebookApp.certfile=/etc/ssl/notebook/notebook.pem
+# --ServerApp.keyfile=/etc/ssl/notebook/notebook.key \
+# --ServerApp.certfile=/etc/ssl/notebook/notebook.pem
