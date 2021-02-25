@@ -98,7 +98,7 @@ do
   docker run \
   -d \
   --rm \
-  --cpu=$CPU \
+  --cpus=$CPU \
   --memory=$MEMORY \
   --name jupyter_"$user" \
   --mount source=$user,target=/home/jovyan \
