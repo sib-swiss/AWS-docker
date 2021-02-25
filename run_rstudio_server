@@ -58,7 +58,7 @@ docker run \
 -d \
 -e ROOT=TRUE \
 -p 9000:8787 \
---name admin \
+--name rstudio_admin \
 -e PASSWORD=$MASTERPW \
 --mount source=data,target=/home/rstudio/data \
 --mount source=group,target=/home/rstudio/group_work \
@@ -77,7 +77,7 @@ do
   --rm \
   -d \
   -p $port:8787 \
-  --name $user \
+  --name rstudio_"$user" \
   -e PASSWORD=$password \
   --mount source=$user,target=/home/rstudio \
   --mount source=data,target=/data,readonly \

@@ -61,7 +61,7 @@ HASH=`python3 ./generate_pw_hash.py -p $MASTERPW`
 docker run \
 --rm \
 -d \
---name admin \
+--name jupyter_admin \
 --mount source=data,target=/data \
 --mount source=group,target=/home/jovyan/group_work \
 --user root \
@@ -88,7 +88,7 @@ do
   docker run \
   -d \
   --rm \
-  --name $user \
+  --name jupyter_"$user" \
   --mount source=$user,target=/home/jovyan \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/home/jovyan/group_work \
