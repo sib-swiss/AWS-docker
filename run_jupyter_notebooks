@@ -100,7 +100,6 @@ do
   --rm \
   --cpus=$CPU \
   --memory=$MEMORY \
-  --memory-swap=$MEMORY \
   --name jupyter_"$user" \
   --mount source=$user,target=/home/jovyan \
   --mount source=data,target=/data,readonly \
