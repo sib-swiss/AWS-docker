@@ -6,7 +6,9 @@ This command generates docker containers based on a rstudio server container for
 \n
 -i image name. If not present yet it will be downloaded from docker hub. Should be based on a jupyter notebook image.\n
 -u user list. Tab delimited list of users with three columns: port, user name, password\n
--p admin password. Password used for the admin container."
+-p admin password. Password used for the admin container.
+-m maximum memory for the user container. Default: 16g.\n
+-c maximum number of cpu for the user container. Default: 4."
 
 while getopts ":i:u:p:" opt
 do
@@ -19,6 +21,12 @@ do
       ;;
     p)
       MASTERPW=$OPTARG
+      ;;
+    m)
+      MEMORY=$OPTARG
+      ;;
+    c)
+      CPU=$OPTARG
       ;;
     \?)
       echo -e "Invalid option: -$OPTARG \n" >&2
@@ -47,6 +55,8 @@ if [ "$MASTERPW" == "" ]; then echo "option -p is missing, but required">&2 && e
 
 # default values
 if [ "$IMAGE" == "" ]; then IMAGE=rocker/rstudio; fi
+if [ "$MEMORY" == "" ]; then MEMORY=16g; fi
+if [ "$CPU" == "" ]; then CPU=4; fi
 
 # create general volume that will be populated with read-only data
 docker volume create data
@@ -78,6 +88,8 @@ do
   docker run \
   --rm \
   -d \
+  --cpus=$CPU \
+  --memory=$MEMORY \
   -p $port:8787 \
   --name rstudio_"$user" \
   -e PASSWORD=$password \
