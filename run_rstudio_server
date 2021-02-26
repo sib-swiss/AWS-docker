@@ -73,6 +73,9 @@ do
   # generate container for each user
   # mount user volume, data volume (general, read only) and group work volume (general, read and write)
   # the permissions of general volumes (data and group work) need to be changed with the master container (this can probably be coded as well)
+  # -e USERID=$port \
+  # -e GROUPID=100 \
+
   docker run \
   --rm \
   -d \
@@ -80,8 +83,7 @@ do
   --name rstudio_"$user" \
   -e PASSWORD=$password \
   -e USER=$user \
-  -e USERID=$port \
-  -e GROUPID=100 \
+  --user $port:100 \
   --mount source=$user,target=/home/$user \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
