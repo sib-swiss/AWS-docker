@@ -63,9 +63,30 @@ run_rstudio_server \
 -p test1234
 ```
 
+### Restricting resource usage
+
+To prevent overcommitment of the server, it can be convenient to restrict resource usage per participant. You can do that with the options `-c` and `-m`, which are passed to the arguments `--cpus` and `--memory` of `docker run`. Use it like this:
+
+```sh
+run_rstudio_server \
+-i rocker/rstudio \
+-u examples/user_list_test.txt \
+-p test1234 \
+-c 2 \
+-m 4g
+```
+
+Resulting in a hard limit of 2 cpu and 4 Gb of memory for each user. By default these are 2 cpu and 16 Gb of memory. These restrictions are not applied to the admin container.
+
+## Container & volume infrastructure
+
+Below you can find an example of the container infrastructure. Blue squares are containers, yellow are volumes. Arrows indicate accessibility. 
+
+![container infrastructure](infrastructure.png)
+
 ## How to use admin privileges
 
-The admin container (i.e. with sudo rights) is available from port 10000. The regular users at the ports specified in the tab-delimited text file.
+The admin container (i.e. with sudo rights) is available from port 10000 for the jupyter containers and 9000 for the rstudio containers. The regular users at the ports specified in the tab-delimited text file.
 
 You can check out a user volume with `mount_user_volume.sh`:
 
@@ -75,6 +96,6 @@ You can check out a user volume with `mount_user_volume.sh`:
 
 This will create an ubuntu container directly accessing the home directory of user01.  
 
-## Stopping services 
+## Stopping services
 
 You can stop all services (containers and volumes) with the script `stop_services.sh`.
