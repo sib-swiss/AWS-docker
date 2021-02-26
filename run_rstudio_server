@@ -61,7 +61,7 @@ docker run \
 --name rstudio_admin \
 -e PASSWORD=$MASTERPW \
 --mount source=data,target=/home/rstudio/data \
---mount source=group,target=/home/rstudio/group_work \
+--mount source=group,target=/group_work \
 $IMAGE
 
 # remove carriage returns and spaces and pipe to while loop
@@ -84,6 +84,6 @@ do
   -e GROUPID=100 \
   --mount source=$user,target=/home/$user \
   --mount source=data,target=/data,readonly \
-  --mount source=group,target=/home/$user/group_work \
+  --mount source=group,target=/group_work \
   $IMAGE
 done
