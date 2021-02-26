@@ -79,6 +79,9 @@ do
   -p $port:8787 \
   --name rstudio_"$user" \
   -e PASSWORD=$password \
+  -e USER=$user \
+  -e USERID=$port \
+  -e GROUPID=100 \
   --mount source=$user,target=/home/rstudio \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/home/rstudio/group_work \
