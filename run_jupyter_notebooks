@@ -108,7 +108,7 @@ do
   -e CHOWN_HOME=yes \
   --mount source=$user,target=/home/$user \
   --mount source=data,target=/data,readonly \
-  --mount source=group,target=/group_work \
+  --mount source=group,target=/home/$user/group_work \
   -e JUPYTER_ENABLE_LAB=yes \
   -p $port:8888 \
   $IMAGE \

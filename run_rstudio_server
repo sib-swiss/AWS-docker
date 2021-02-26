@@ -82,8 +82,8 @@ do
   -e USER=$user \
   -e USERID=$port \
   -e GROUPID=100 \
-  --mount source=$user,target=/home/rstudio \
+  --mount source=$user,target=/home/$user \
   --mount source=data,target=/data,readonly \
-  --mount source=group,target=/home/rstudio/group_work \
+  --mount source=group,target=/home/$user/group_work \
   $IMAGE
 done
