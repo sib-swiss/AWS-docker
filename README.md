@@ -80,7 +80,7 @@ Resulting in a hard limit of 2 cpu and 4 Gb of memory for each user. By default 
 
 ## Container & volume infrastructure
 
-Below you can find an example of the container infrastructure. Blue squares are containers, yellow are volumes. Arrows indicate accessibility. 
+Below you can find an example of the container infrastructure. Blue squares are containers, yellow are volumes. Arrows indicate accessibility. The data volume is meant to harbour read-only data (e.g. raw data). The group volume is meant as a shared directory, where everybody can read and write. 
 
 ![container infrastructure](infrastructure.png)
 
