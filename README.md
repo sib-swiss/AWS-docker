@@ -37,6 +37,8 @@ Prepare a tab-delimited user list with three columns: port, username and passwor
 10002	user02	pwuserb
 ```
 
+Once deployed, the jupyter notebook or rstudio server will be available through `[HOST IP]:[PORT]`.
+
 ### Deploy containers based on jupyter notebook
 
 Prepare an image that you want to use for the course. This image should be based on a jupyter notebook container, e.g. [jupyter/base-notebook](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-base-notebook), and should be available from `dockerhub`.
@@ -63,7 +65,9 @@ run_rstudio_server \
 -p test1234
 ```
 
-### Restricting resource usage
+The username to log on to rstudio server is `rstudio`.
+
+## Restricting resource usage
 
 To prevent overcommitment of the server, it can be convenient to restrict resource usage per participant. You can do that with the options `-c` and `-m`, which are passed to the arguments `--cpus` and `--memory` of `docker run`. Use it like this:
 
@@ -80,7 +84,7 @@ Resulting in a hard limit of 2 cpu and 4 Gb of memory for each user. By default 
 
 ## Container & volume infrastructure
 
-Below you can find an example of the container infrastructure. Blue squares are containers, yellow are volumes. Arrows indicate accessibility. The data volume is meant to harbour read-only data (e.g. raw data). The group volume is meant as a shared directory, where everybody can read and write. 
+Below you can find an example of the container infrastructure. Blue squares are containers, yellow are volumes. Arrows indicate accessibility. The data volume is meant to harbour read-only data (e.g. raw data). The group volume is meant as a shared directory, where everybody can read and write.
 
 ![container infrastructure](infrastructure.png)
 
