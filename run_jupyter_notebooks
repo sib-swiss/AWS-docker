@@ -104,6 +104,7 @@ do
   --user root \
   -e NB_USER=$user \
   -e NB_UID=$port \
+  -e NB_UMASK=002 \
   -w /home/$user \
   -e CHOWN_HOME=yes \
   --mount source=$user,target=/home/$user \
