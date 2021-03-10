@@ -93,6 +93,8 @@ do
   -p $port:8787 \
   --name rstudio_"$user" \
   -e PASSWORD=$password \
+  -e USERID=$port \
+  -e UMASK=002 \
   --mount source=$user,target=/home/$user \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
