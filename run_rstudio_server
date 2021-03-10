@@ -10,7 +10,7 @@ This command generates docker containers based on a rstudio server container for
 -m maximum memory for the user container. Default: 16g.\n
 -c maximum number of cpu for the user container. Default: 4."
 
-while getopts ":i:u:p:" opt
+while getopts ":i:u:p:m:c:" opt
 do
   case $opt in
     i)
