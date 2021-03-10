@@ -92,9 +92,9 @@ do
   --memory=$MEMORY \
   -p $port:8787 \
   --name rstudio_"$user" \
+  --user=$port:100 \
   -e PASSWORD=$password \
   -e USERID=$port \
-  -e GROUPID=100 \
   -e UMASK=002 \
   --mount source=$user,target=/home/$user \
   --mount source=data,target=/data,readonly \
