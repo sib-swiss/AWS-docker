@@ -64,7 +64,7 @@ docker volume create data
 docker volume create group
 
 # generate hash for master password
-HASH=`python3 ./generate_pw_hash.py -p $MASTERPW`
+# HASH=`python3 ./generate_pw_hash.py -p $MASTERPW`
 
 # generate admin container
 # the option -e GRANT_SUDO=yes is required to e.g. change permissions in the root directory
@@ -79,16 +79,16 @@ docker run \
 -e CHOWN_EXTRA="/group_work" \
 -e GRANT_SUDO=yes \
 -e JUPYTER_ENABLE_LAB=yes \
+-e JUPYTER_TOKEN=$MASTERPW \
 -p 10000:8888 \
 $IMAGE \
-start-notebook.sh \
---ServerApp.password=$HASH
+start-notebook.sh
 
 # remove carriage returns and spaces and pipe to while loop
 cat $USERLIST | tr -d '\015\040' | while read port user password
 do
   # generate hash from password
-  HASH=`python3 ./generate_pw_hash.py -p $password`
+  # HASH=`python3 ./generate_pw_hash.py -p $password`
 
   # create user volume. If the container crashes the volume keeps existing.
   docker volume create $user
@@ -112,10 +112,10 @@ do
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
   -e JUPYTER_ENABLE_LAB=yes \
+  -e JUPYTER_TOKEN=$password \
   -p $port:8888 \
   $IMAGE \
-  start-notebook.sh \
-  --ServerApp.password=$HASH
+  start-notebook.sh
 done
 
 # stop all containers:
