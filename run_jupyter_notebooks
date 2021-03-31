@@ -68,10 +68,14 @@ docker volume create group
 
 # generate admin container
 # the option -e GRANT_SUDO=yes is required to e.g. change permissions in the root directory
+
+docker volume create jupyter_admin
+
 docker run \
 --rm \
 -d \
 --name jupyter_admin \
+--mount source=jupyter_admin,target=/home/jovyan \
 --mount source=data,target=/data \
 --mount source=group,target=/group_work \
 --user root \
