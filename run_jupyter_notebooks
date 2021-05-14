@@ -108,7 +108,7 @@ do
   --name jupyter_"$user" \
   --user root \
   -e NB_USER=$user \
-  -e NB_UID=$port \
+  -e NB_UID=1000 \
   -e NB_UMASK=002 \
   -w /home/$user \
   -e CHOWN_HOME=yes \
