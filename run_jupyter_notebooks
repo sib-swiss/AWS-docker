@@ -102,9 +102,9 @@ do
   # the permissions of general volumes (data and group work) need to be changed with the master container (this can probably be coded as well)
   docker run \
   -d \
-  --rm \
   --cpus=$CPU \
   --memory=$MEMORY \
+  --restart=on-failure:10 \
   --name jupyter_"$user" \
   --user root \
   -e NB_USER=$user \

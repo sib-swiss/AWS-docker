@@ -86,10 +86,10 @@ do
 
 
   docker run \
-  --rm \
   -d \
   --cpus=$CPU \
   --memory=$MEMORY \
+  --restart=on-failure:10 \
   -p $port:8787 \
   --name rstudio_"$user" \
   -e PASSWORD=$password \
