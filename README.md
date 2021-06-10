@@ -14,14 +14,6 @@ sudo service docker start
 
 You can add the above code to the code run at initialisation. Otherwise, logout and login again to be able use `docker` without `sudo`.
 
-Also install `pip` and `jupyter_server`:
-
-```sh
-sudo apt-get update
-sudo apt-get install -y python3-pip
-pip3 install jupyter_server
-```
-
 Clone this repository:
 
 ```sh
