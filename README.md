@@ -4,6 +4,8 @@ Scripts to employ multiple docker containers simultaneously for teaching.
 
 ## Preparation
 
+Start an AWS EC2 instance with an Ubuntu AMI. If you are new to this, [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)'s a good place to get started. 
+
 Install docker on AWS (e.g. on an ubuntu image):
 
 ```sh
@@ -22,7 +24,7 @@ git clone https://github.com/GeertvanGeest/AWS-docker.git
 
 ## Generate credentials
 
-You can generate credentials from a tab-delimited list of users, with four columns: first name, last name, e-mail, instance IP. Here's an example:
+You can generate credentials from a tab-delimited list of users, with four columns: first name, last name, e-mail, instance IP (it's most convenient if your work with an elastic IP that you can reserve before the instance is started). Here's an example:
 
 ```
 Jan	de Wandelaar	jan.wandel@somedomain.com	18.192.64.150
@@ -56,7 +58,7 @@ Use the script `./generate_credentials.sh` to generate a list of ports, username
 9003	jzoetemelk	LadwVbiYY4rH0S5TjeI=
 ```
 
-Once deployed, the jupyter notebook or rstudio server will be available through `[HOST IP]:[PORT]`. If you want to have both rstudio server and jupyter notebook running on the same instance, you can generate two tab-delimited files (on for rstudio and one for jupyter) and give them the same passwords for convenience. **Note that each container uses a single port, so the files should contain different ports!**
+Once deployed, the jupyter notebook or rstudio server will be available through `[HOST IP]:[PORT]`. If you want to have both rstudio server and jupyter notebook running on the same instance, you can generate two tab-delimited files (one for rstudio and one for jupyter) and give them the same passwords for convenience. **Note that each container uses a single port, so the files should contain different ports!**
 
 ### Deploy containers based on jupyter notebook
 
