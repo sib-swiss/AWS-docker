@@ -64,7 +64,6 @@ docker volume create data
 docker volume create group
 
 docker run \
---rm \
 -d \
 -e ROOT=TRUE \
 -p 9000:8787 \
@@ -93,7 +92,6 @@ do
   -p $port:8787 \
   --name rstudio_"$user" \
   -e PASSWORD=$password \
-  -e UMASK=002 \
   --mount source=$user,target=/home/rstudio \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
