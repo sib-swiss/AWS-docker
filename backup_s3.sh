@@ -47,7 +47,7 @@ docker run \
 -v ~/.aws:/root/.aws \
 --mount source=group,target=/group_work,readonly \
 amazon/aws-cli \
-s3 sync --delete \
+s3 sync --delete --quiet \
 /group_work \
 s3://$S3BUCKET/$SERVERNAME/group_work
 
@@ -58,7 +58,7 @@ do
     -v ~/.aws:/root/.aws \
     --mount source=$user,target=/root/$user,readonly \
     amazon/aws-cli \
-    s3 sync --delete \
+    s3 sync --delete --quiet \
     /root/$user/ \
     s3://$S3BUCKET/$SERVERNAME/users/$user
 done
