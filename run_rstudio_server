@@ -6,7 +6,7 @@ This command generates docker containers based on a rstudio server container for
 \n
 -i image name. If not present yet it will be downloaded from docker hub. Should be based on a jupyter notebook image.\n
 -u user list. Tab delimited list of users with three columns: port, user name, password\n
--p admin password. Password used for the admin container.
+-p admin password. Password used for the admin container.\n
 -m maximum memory for the user container. Default: 16g.\n
 -c maximum number of cpu for the user container. Default: 4."
 
