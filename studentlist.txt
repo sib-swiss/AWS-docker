@@ -1,0 +1,42 @@
+Sanna	Abrahamsson	sannaabrahamsson@gmail.com	52.59.137.152
+Akshay	Akshay	akshay.akshay@dbmr.unibe.ch	52.59.137.152
+Charles Gwellem	Anchang	charlesgwellem.anchang@uk-erlangen.de	52.59.137.152
+Zaneta	Andrusivova	zaneta.andrusivova@scilifelab.se	52.59.137.152
+Sanghita	Banerjee	sanghita.banerjee@ki.se	52.59.137.152
+Mariia	Bilous	mariia.bilous@unil.ch	52.59.137.152
+Daryl	Boey	daryl.boey.zhong.hao@ki.se	52.59.137.152
+Daniel	Borshagovski	daniel.borshagovski@ki.se	52.59.137.152
+Ignacio	Del Valle Torres	i.delvalle@ucl.ac.uk	52.59.137.152
+Adhideb	Ghosh	adhideb.ghosh@fgcz.ethz.ch	52.59.137.152
+Jana	Koch	jana.koch@siaf.uzh.ch	52.59.137.152
+Andri	Lemarquis	andri.lemarquis@gu.se	52.59.137.152
+Julien	Limenitakis	Julien.limenitakis@dbmr.unibe.ch	52.59.137.152
+Almut	L�tge	almut.luetge@uzh.ch	52.59.137.152
+Grzegorz	Maciag	grzegorz.maciag@bric.ku.dk	52.59.137.152
+Harald	Melin	haraldme@kth.se	52.59.137.152
+Lasse	Novel	votborg-novel@mpiib-berlin.mpg.de	52.59.137.152
+Anna	Papiez	anna.papiez@polsl.pl	52.59.137.152
+Efthalia	Preka	efthalia.preka@ki.se	52.59.137.152
+Giulia	Protti	g.protti3@campus.unimib.it	52.59.137.152
+Lucie	Rodriguez	lucie.rodriguez@ki.se	52.59.137.152
+Gustavo	Ruiz Buend�a	gustavo.ruizbuendia@sib.swiss	52.59.137.152
+DANIEL	SANCHEZ-TALTAVULL	daniel.sanchez@dbmr.unibe.ch	52.59.137.152
+Giada	Sandrini	giada.sandrini@ior.usi.ch	52.59.137.152
+mengnan	shi	MENGNAN@KTH.SE	52.59.137.152
+Martin	Smelik	martin.smelik@liu.se	52.59.137.152
+Anthony	Sonrel	anthony.sonrel@uzh.ch	52.59.137.152
+Marcel	Tarbier	marcel.tarbier@scilifelab.se	52.59.137.152
+Lodovico	Terzi di Bergamo	lodovico.terzi@ior.usi.ch	52.59.137.152
+Michael	Teske	michael.teske@uzh.ch	52.59.137.152
+Marco	Vicari	marco.vicari@scilifelab.se	52.59.137.152
+Damir	Zhakparov	damir.zhakparov@uzh.ch	52.59.137.152
+Alma	Andersson	test@test.ch	52.59.137.152
+Asa	Bjorklund	test@test.ch	52.59.137.152
+Charlotte	Soneson	test@test.ch	52.59.137.152
+Emma	Dann	test@test.ch	52.59.137.152
+Geert	van Geest	test@test.ch	52.59.137.152
+Gregoire	Rossier	test@test.ch	52.59.137.152
+Jessica	Lindvall	test@test.ch	52.59.137.152
+Panagiotis	Papasaikas	test@test.ch	52.59.137.152
+Paulo Victo	Czarnewski Barenco	test@test.ch	52.59.137.152
+Volker	Bergen	test@test.ch	52.59.137.152

@@ -4,7 +4,7 @@ Scripts to employ multiple docker containers simultaneously for teaching.
 
 ## Preparation
 
-Start an AWS EC2 instance with an Ubuntu AMI. If you are new to this, [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)'s a good place to get started. 
+Start an AWS EC2 instance with an Ubuntu AMI. If you are new to this, [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html) is a good place to get started. 
 
 Install docker on AWS (e.g. on an ubuntu image):
 
@@ -116,7 +116,7 @@ Resulting in a hard limit of 2 cpu and 4 Gb of memory for each user. By default 
 
 Below you can find an example of the container infrastructure. Blue squares are containers, yellow are volumes. Arrows indicate accessibility. The data volume is meant to harbour read-only data (e.g. raw data). The group volume is meant as a shared directory, where everybody can read and write.
 
-![container infrastructure](infrastructure.png)
+![container infrastructure](images/infrastructure.png)
 
 ## How to use admin privileges
 
