@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-USAGE="Usage: backup_s3 -i <image> -u <user list> -p <admin password>\n
+USAGE="Usage: backup_s3 -u <user list> -s <s3 bucket> -e <EC2 server name>\n
 \n
-Creates a backup of group_work volume and user volumes in S3\n
+Creates a backup of group_work volume and user volumes in S3. Make sure you have your credentials in ~/.aws. 
+If you haven't set up your credentials yet, run 'aws configure' first.\n
 \n
 -u user list. Tab delimited list of users with three columns: port, user name, password\n
 -s S3 bucket.\n
--e EC2 server name.\n
+-e EC2 server name. This is used as directory name on S3.\n
 "
 
 while getopts ":u:s:e:" opt
