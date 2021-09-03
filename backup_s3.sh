@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-USAGE="Usage: backup_s3 -i <image> -u <user list> -p <admin password>\n
+USAGE="Usage: run_rstudio_server -i <image> -u <user list> -p <admin password>\n
 \n
 Creates a backup of group_work volume and user volumes in S3\n
 \n
