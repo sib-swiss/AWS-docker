@@ -44,7 +44,6 @@ if [ "$S3BUCKET" == "" ]; then echo "option -s is missing, but required">&2 && e
 
 docker run \
 --rm \
--ti \
 -v ~/.aws:/root/.aws \
 --mount source=group,target=/group_work,readonly \
 amazon/aws-cli \
