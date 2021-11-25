@@ -1,12 +1,14 @@
 # AWS-docker
 
-Scripts to employ multiple docker containers simultaneously for teaching.
+Scripts to deploy multiple docker containers simultaneously for teaching.
 
 ## Preparation
 
 Start an AWS EC2 instance with an Ubuntu AMI. If you are new to this, [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html) is a good place to get started. 
 
-Install docker on AWS (e.g. on an ubuntu image):
+Here's a [repository](https://github.com/GeertvanGeest/terraform-AWS-teaching) that automates the start of an EC2 instance with `terraform`. 
+
+If docker is not pre-installed in your chosen AMI (it is pre-installed in e.g. the [Ubuntu deep learning base AMI](https://aws.amazon.com/marketplace/pp/prodview-dxk3xpeg6znhm)), install docker on the instance:
 
 ```sh
 curl https://get.docker.com | sh
@@ -16,7 +18,7 @@ sudo service docker start
 
 You can add the above code to the code run at initialisation. Otherwise, logout and login again to be able use `docker` without `sudo`.
 
-Clone this repository:
+After that, clone this repository:
 
 ```sh
 git clone https://github.com/GeertvanGeest/AWS-docker.git
