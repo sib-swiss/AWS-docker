@@ -135,3 +135,40 @@ This will create an ubuntu container directly accessing the home directory of us
 ## Stopping services
 
 You can stop all services (containers and volumes) with the script `stop_services.sh`.
+
+## Setting up a backup
+
+With the script `backup_s3.sh` you can sync files from the docker volumes to s3. It will sync the shared volume `group_work` and the invidual user volumes. In order to run the script, first configure AWS cli on the server:
+
+```
+aws configure
+```
+
+More info about configuring AWS cli [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html). 
+
+After that, we can specify a cronjob, to sync these files regularly. The script `scripts/backup_s3_cronjob.sh` calls `backup_s3.sh` and can be used in your cronjob. To do this, first edit `scripts/backup_s3_cronjob.sh`:
+
+```sh
+#!/usr/bin/env bash
+
+cd /home/ubuntu
+AWS-docker/backup_s3 \
+-u [CREDENTIALS input_docker_start.txt] \
+-s [EXISTING S3 BUCKET] \
+-e [DIRECTORY IN THE BUCKET (newly created)] \
+2>> cronjob.err
+```
+
+Now run:
+
+```sh
+crontab -e
+```
+
+And add a cronjob. E.g. for every hour you can add this line (use a full path to the cronjob script):
+
+```
+0 * * * * /home/ubuntu/backup_s3_cronjob.sh
+```
+
+
