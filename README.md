@@ -99,7 +99,7 @@ The username to log on to rstudio server is `rstudio`.
 
 To access the admin container, go to `[HOST IP]:9000`
 
-## Deploy containers based on vscode server
+### Deploy containers based on vscode server
 
 Prepare an image that you want to use for the course. This image should be based on a image [linuxserver/code-server](https://hub.docker.com/r/linuxserver/code-server) image, and should be available from `dockerhub`.
 
