@@ -99,6 +99,25 @@ The username to log on to rstudio server is `rstudio`.
 
 To access the admin container, go to `[HOST IP]:9000`
 
+## Deploy containers based on vscode server
+
+Prepare an image that you want to use for the course. This image should be based on a image [linuxserver/code-server](https://hub.docker.com/r/linuxserver/code-server) image, and should be available from `dockerhub`.
+
+In the docker file you can install code-server extensions with `/usr/local/bin/install-extension`. 
+
+Run the script `run_vscode_server`:
+
+```sh
+run_vscode_server \
+-i linuxserver/code-server \
+-u examples/credentials_vscode/input_docker_start.txt \
+-p test1234
+```
+
+See above for the meaning of the options.
+
+To access the admin container, go to `[HOST IP]:7000`
+
 ## Restricting resource usage
 
 To prevent overcommitment of the server, it can be convenient to restrict resource usage per participant. You can do that with the options `-c` and `-m`, which are passed to the arguments `--cpus` and `--memory` of `docker run`. Use it like this:
