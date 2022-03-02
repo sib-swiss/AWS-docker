@@ -65,13 +65,13 @@ docker volume create group
 
 docker run \
 -d \
--e ROOT=TRUE \
+-e SUDO_PASSWORD=$MASTERPW \
 -p 7000:8443 \
 --name vscode_admin \
 -e PASSWORD=$MASTERPW \
 -e PUID=1000 \
 -e PGID=1000 \
---mount source=data,target=/config/workspace/data \
+--mount source=data,target=/data \
 --mount source=group,target=/group_work \
 $IMAGE
 
