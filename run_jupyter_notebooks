@@ -74,7 +74,7 @@ docker volume create jovyan
 docker run \
 -d \
 --name jupyter_admin \
---mount source=jovyan,target=/home/jovyan \
+--mount source=jovyan,target=/home/jovyan/workdir \
 --mount source=data,target=/data \
 --mount source=group,target=/group_work \
 --user root \
@@ -112,7 +112,7 @@ do
   -e NB_UMASK=002 \
   -w /home/$user \
   -e CHOWN_HOME=yes \
-  --mount source=$user,target=/home/$user \
+  --mount source=$user,target=/home/$user/workdir \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
   -e JUPYTER_ENABLE_LAB=yes \
