@@ -118,6 +118,7 @@ do
   -e JUPYTER_ENABLE_LAB=yes \
   -e JUPYTER_TOKEN=$password \
   -p $port:8888 \
+  -p $((port-2000)):5001 \
   $IMAGE \
   start-notebook.sh
 done
