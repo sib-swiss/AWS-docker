@@ -107,12 +107,9 @@ do
   --restart=on-failure:10 \
   --name jupyter_"$user" \
   --user root \
-  -e NB_USER=juser \
-  -e NB_UID=1000 \
   -e NB_UMASK=002 \
-  -w /home/juser \
-  -e CHOWN_HOME=yes \
-  --mount source=$user,target=/home/juser/workdir \
+  -e CHOWN_EXTRA=/home/jovyan/workdir \
+  --mount source=$user,target=/home/jovyan/workdir \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
   -e JUPYTER_ENABLE_LAB=yes \
