@@ -92,7 +92,7 @@ do
   -p $port:8787 \
   --name rstudio_"$user" \
   -e PASSWORD=$password \
-  --mount source=$user,target=/home/rstudio \
+  --mount source=$user,target=/home/rstudio/workdir \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
   $IMAGE
