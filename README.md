@@ -1,6 +1,6 @@
 # AWS-docker
 
-Scripts to deploy multiple docker containers simultaneously for teaching.
+Scripts to deploy multiple docker containers simultaneously for teaching. 
 
 ## Preparation
 
