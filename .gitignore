@@ -1,3 +1,5 @@
 credentials
 .DS_Store
-credentials*/
+credentials/
+credent*
+user_list*

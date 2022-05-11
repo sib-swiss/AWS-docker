@@ -74,7 +74,7 @@ docker volume create jovyan
 docker run \
 -d \
 --name jupyter_admin \
---mount source=jovyan,target=/home/jovyan \
+--mount source=jovyan,target=/home/jovyan/workdir \
 --mount source=data,target=/data \
 --mount source=group,target=/group_work \
 --user root \
@@ -107,17 +107,15 @@ do
   --restart=on-failure:10 \
   --name jupyter_"$user" \
   --user root \
-  -e NB_USER=$user \
-  -e NB_UID=1000 \
   -e NB_UMASK=002 \
-  -w /home/$user \
-  -e CHOWN_HOME=yes \
-  --mount source=$user,target=/home/$user \
+  -e CHOWN_EXTRA=/home/jovyan/workdir \
+  --mount source=$user,target=/home/jovyan/workdir \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
   -e JUPYTER_ENABLE_LAB=yes \
   -e JUPYTER_TOKEN=$password \
   -p $port:8888 \
+  -p $((port-2000)):$((port-2000)) \
   $IMAGE \
   start-notebook.sh
 done

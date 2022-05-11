@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+USAGE="Usage: tar_s3 -u <user list> -s <s3 bucket> -e <EC2 server name>\n
+\n
+Creates a compressed tar file of user volumes in S3. The tar files are place in s3://[s3 bucket]/[ec2 servername]/users/.
+Make sure you have your credentials in ~/.aws. 
+If you haven't set up your credentials yet, run 'aws configure' first.\n
+\n
+-u user list. Tab delimited list of users with three columns: port, user name, password\n
+-s S3 bucket.\n
+-e EC2 server name. This is used as directory name on S3.\n
+"
+
+while getopts ":u:s:e:" opt
+do
+  case $opt in
+    u)
+      USERLIST=$OPTARG
+      ;;
+    s)
+      S3BUCKET=$OPTARG
+      ;;
+    e)
+      SERVERNAME=$OPTARG
+      ;;
+  esac
+done
+
+# return usage if no options are passed
+if [ $OPTIND -eq 1 ]
+then
+  echo -e "No options were passed. \n" >&2
+  echo -e $USAGE >&2
+  exit 1
+fi
+
+# required options
+if [ "$USERLIST" == "" ]; then echo "option -u is missing, but required">&2 && exit 1; fi
+if [ "$SERVERNAME" == "" ]; then echo "option -e is missing, but required">&2 && exit 1; fi
+if [ "$S3BUCKET" == "" ]; then echo "option -s is missing, but required">&2 && exit 1; fi
+
+cat $USERLIST | tr -d '\015\040' | while read port user password
+do
+    # SERVERNAME=20220228_ISCTR
+    # S3BUCKET=single-cell-transcriptomics
+    # user=gvangeest
+    
+    docker volume create tarfiles
+
+    # generate tar file
+    docker run \
+    --rm \
+    --mount source=$user,target=/$user,readonly \
+    --mount source=tarfiles,target=/tarfiles \
+    ubuntu \
+    tar \
+    --exclude=".*" \
+    --exclude="/$user/single_cell_course/course_data" \
+    -czf /tarfiles/$user.tar.gz /$user
+
+    # copy to s3
+    docker run \
+    --rm \
+    -v ~/.aws:/root/.aws \
+    --mount source=tarfiles,target=/tarfiles \
+    amazon/aws-cli \
+    s3 cp \
+    /tarfiles/$user.tar.gz \
+    s3://$S3BUCKET/$SERVERNAME/users/$user.tar.gz
+
+    # volume creation and deletion inside the loop
+    # otherwise volume will become large
+    docker volume rm tarfiles
+done
+

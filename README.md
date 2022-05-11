@@ -1,6 +1,6 @@
 # AWS-docker
 
-Scripts to deploy multiple docker containers simultaneously for teaching.
+Scripts to deploy multiple docker containers simultaneously for teaching. 
 
 ## Preparation
 
@@ -99,6 +99,25 @@ The username to log on to rstudio server is `rstudio`.
 
 To access the admin container, go to `[HOST IP]:9000`
 
+### Deploy containers based on vscode server
+
+Prepare an image that you want to use for the course. This image should be based on a image [linuxserver/code-server](https://hub.docker.com/r/linuxserver/code-server) image, and should be available from `dockerhub`.
+
+In the docker file you can install code-server extensions with `/usr/local/bin/install-extension`. 
+
+Run the script `run_vscode_server`:
+
+```sh
+run_vscode_server \
+-i linuxserver/code-server \
+-u examples/credentials_vscode/input_docker_start.txt \
+-p test1234
+```
+
+See above for the meaning of the options.
+
+To access the admin container, go to `[HOST IP]:7000`
+
 ## Restricting resource usage
 
 To prevent overcommitment of the server, it can be convenient to restrict resource usage per participant. You can do that with the options `-c` and `-m`, which are passed to the arguments `--cpus` and `--memory` of `docker run`. Use it like this:
@@ -116,7 +135,13 @@ Resulting in a hard limit of 2 cpu and 4 Gb of memory for each user. By default 
 
 ## Container & volume infrastructure
 
-Below you can find an example of the container infrastructure. Blue squares are containers, yellow are volumes. Arrows indicate accessibility. The data volume is meant to harbour read-only data (e.g. raw data). The group volume is meant as a shared directory, where everybody can read and write.
+There are three volumes mounted to each container:
+
+- The volume `data` is mounted to `/data`. This volume is meant to harbour read-only data (e.g. raw data). 
+- The volume `group_work` is mounted to `/group_work`. The group volume is meant as a shared directory, where everybody can read and write.
+- Each user has a personal volume, named after the username (output of `generate_credentials`). This volume is mounted to `/home/rstudio/workdir/` for rstudio, `/home/jovyan/workdir` for jupyter, and `/config/workdir` for vscode. 
+
+Below you can find an example of the container infrastructure. Blue squares are containers, yellow are volumes. Arrows indicate accessibility. 
 
 ![container infrastructure](images/infrastructure.png)
 
@@ -135,3 +160,40 @@ This will create an ubuntu container directly accessing the home directory of us
 ## Stopping services
 
 You can stop all services (containers and volumes) with the script `stop_services.sh`.
+
+## Setting up a backup
+
+With the script `backup_s3.sh` you can sync files from the docker volumes to s3. It will sync the shared volume `group_work` and the invidual user volumes. In order to run the script, first configure AWS cli on the server:
+
+```
+aws configure
+```
+
+More info about configuring AWS cli [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html). 
+
+After that, we can specify a cronjob, to sync these files regularly. The script `scripts/backup_s3_cronjob.sh` calls `backup_s3.sh` and can be used in your cronjob. To do this, first edit `scripts/backup_s3_cronjob.sh`:
+
+```sh
+#!/usr/bin/env bash
+
+cd /home/ubuntu
+AWS-docker/backup_s3 \
+-u [CREDENTIALS input_docker_start.txt] \
+-s [EXISTING S3 BUCKET] \
+-e [DIRECTORY IN THE BUCKET (newly created)] \
+2>> cronjob.err
+```
+
+Now run:
+
+```sh
+crontab -e
+```
+
+And add a cronjob. E.g. for every hour you can add this line (use a full path to the cronjob script):
+
+```
+0 * * * * /home/ubuntu/backup_s3_cronjob.sh
+```
+
+

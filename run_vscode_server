@@ -4,7 +4,7 @@ USAGE="Usage: run_rstudio_server -i <image> -u <user list> -p <admin password>\n
 \n
 This command generates docker containers based on a rstudio server container for each user\n
 \n
--i image name. If not present yet it will be downloaded from docker hub. Should be based on a rocker/rstudio image. Default: rocker/rstudio\n
+-i image name. If not present yet it will be downloaded from docker hub. Should be based on a jupyter notebook image.\n
 -u user list. Tab delimited list of users with three columns: port, user name, password\n
 -p admin password. Password used for the admin container.\n
 -m maximum memory for the user container. Default: 16g.\n
@@ -54,7 +54,7 @@ if [ "$USERLIST" == "" ]; then echo "option -u is missing, but required">&2 && e
 if [ "$MASTERPW" == "" ]; then echo "option -p is missing, but required">&2 && exit 1; fi
 
 # default values
-if [ "$IMAGE" == "" ]; then IMAGE=rocker/rstudio; fi
+if [ "$IMAGE" == "" ]; then IMAGE=linuxserver/code-server; fi
 if [ "$MEMORY" == "" ]; then MEMORY=16g; fi
 if [ "$CPU" == "" ]; then CPU=4; fi
 
@@ -65,11 +65,13 @@ docker volume create group
 
 docker run \
 -d \
--e ROOT=TRUE \
--p 9000:8787 \
---name rstudio_admin \
+-e SUDO_PASSWORD=$MASTERPW \
+-p 7000:8443 \
+--name vscode_admin \
 -e PASSWORD=$MASTERPW \
---mount source=data,target=/home/rstudio/data \
+-e PUID=1000 \
+-e PGID=1000 \
+--mount source=data,target=/data \
 --mount source=group,target=/group_work \
 $IMAGE
 
@@ -83,16 +85,18 @@ do
   # mount user volume, data volume (general, read only) and group work volume (general, read and write)
   # the permissions of general volumes (data and group work) need to be changed with the master container (this can probably be coded as well)
 
-
   docker run \
   -d \
   --cpus=$CPU \
   --memory=$MEMORY \
   --restart=on-failure:10 \
-  -p $port:8787 \
-  --name rstudio_"$user" \
+  -p $port:8443 \
+  --name vscode_"$user" \
   -e PASSWORD=$password \
-  --mount source=$user,target=/home/rstudio/workdir \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e DEFAULT_WORKSPACE=/config/workdir \
+  --mount source=$user,target=/config/workdir \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
   $IMAGE
