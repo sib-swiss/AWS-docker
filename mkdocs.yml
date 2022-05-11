@@ -1,0 +1,45 @@
+site_name: Docs on hosting containers on AWS for teaching
+nav:
+    - Docs: index.md
+    - Tutorial: tutorial.md
+
+theme:
+  name: material
+  logo: assets/images/SIB_logo.svg
+  favicon: assets/images/SIB_logo.svg
+
+# Repository
+repo_name: sib-swiss/AWS-docker
+repo_url: https://github.com/sib-swiss/AWS-docker
+edit_uri: ""
+
+markdown_extensions:
+  - abbr
+  - def_list
+  - footnotes
+  - tables
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - sane_lists
+  - smarty
+  - toc
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+  - attr_list
+  - pymdownx.tabbed
+  - pymdownx.details
+  - pymdownx.keys
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+      options:
+        custom_icons:
+          - overrides/.icons
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  version:
+    provider: mike
