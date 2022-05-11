@@ -4,7 +4,7 @@ USAGE="Usage: run_rstudio_server -i <image> -u <user list> -p <admin password>\n
 \n
 This command generates docker containers based on a rstudio server container for each user\n
 \n
--i image name. If not present yet it will be downloaded from docker hub. Should be based on a jupyter notebook image.\n
+-i image name. If not present yet it will be downloaded from docker hub. Should be based on a linuxserver/code-server image. Default: linuxserver/code-server\n
 -u user list. Tab delimited list of users with three columns: port, user name, password\n
 -p admin password. Password used for the admin container.\n
 -m maximum memory for the user container. Default: 16g.\n
