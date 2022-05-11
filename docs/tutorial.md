@@ -14,7 +14,7 @@ Do this by navigating to the EC2 console, and press the orange button **Launch i
 chmod 400 mykey.pem
 ```
 
-Add a security group rule expanding **Network settings** and clicking **Add security group rule**. At **port range** specify `9000-9050`, and at **source** `0.0.0.0/0` (meaning the ports can be approached from anywhere). At **Configure storage** specify 30 Gb of gp2 storage as Root volume. To launch the instance, now click **Launch instance**. 
+Add a security group rule by expanding **Network settings** and clicking **Add security group rule**. At **port range** specify `9000-9050`, and at **source** `0.0.0.0/0` (meaning the ports can be approached from anywhere). At **Configure storage** specify 30 Gb of gp2 storage as Root volume. To launch the instance, now click **Launch instance**. 
 
 ## Login to the instance and install docker
 
@@ -53,7 +53,7 @@ Joop    Zoetemelk       joop.zoet@lekkerfietsen.nl      18.192.64.150
 The IP addresses need to be replaced with the IP v4 address of your launced instance. Do this with a text editor (e.g. `nano`). 
 
 !!! note
-    In a real case, you would prepare this file locally after you have launced your instance (i.e. when you know your public IP). After you have generated it, you can copy it to the instance with e.g. `rsync` or `scp`. 
+    In a real case, you would prepare the user list locally after you have launced your instance (i.e. when you know your public IP). After you have generated it, you can copy the user list to the instance with e.g. `rsync` or `scp`. 
 
 Now that we have the user list ready we can generate the credentials with the script `generate_credentials`:
 
