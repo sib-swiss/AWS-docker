@@ -4,7 +4,7 @@ USAGE="Usage: run_jupyter_notebooks -i <image> -u <user list> -p <admin password
 \n
 This command generates docker containers based on a jupyter notebook container for each user\n
 \n
--i image name. If not present yet it will be downloaded from docker hub. Should be based on a jupyter notebook image.\n
+-i image name. If not present yet it will be downloaded from docker hub. Should be based on a jupyter stacks image. Default: jupyter/base-notebook\n
 -u user list. Tab delimited list of users with three columns: port, user name, password\n
 -p admin password. Password used for the admin container.\n
 -m maximum memory for the user container. Default: 16g.\n
