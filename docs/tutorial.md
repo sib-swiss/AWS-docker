@@ -1,7 +1,9 @@
 
+In this tutorial we will go through the steps to start up an EC2 instance, generate credentials and deploying containers running Rstudio server. The tutorial assumes that you already have an AWS account. If you haven't got one, make one [here](https://portal.aws.amazon.com/billing/signup#/start/email). 
+
 ## Start up an EC2 instance
 
-First, start up an EC2 instance. Below we will start up an EC2 instance with the following characteristics:
+In the tutorial below we will start up an EC2 instance with the following characteristics:
 
 - Type `t2.micro` (free small instance)
 - Running Ubuntu
