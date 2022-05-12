@@ -1,9 +1,15 @@
 
-In this tutorial we will go through the steps to start up an EC2 instance, generate credentials and deploying containers running Rstudio server. The tutorial assumes that you already have an AWS account. If you haven't got one, make one [here](https://portal.aws.amazon.com/billing/signup#/start/email). 
+In this tutorial we will go through the following steps: 
+
+- start up an EC2 instance
+- generate credentials 
+- deploying containers running Rstudio server. 
+
+The tutorial assumes that you already have an AWS account. If you haven't got one, make one [here](https://portal.aws.amazon.com/billing/signup#/start/email). 
 
 ## Start up an EC2 instance
 
-In the tutorial below we will start up an EC2 instance with the following characteristics:
+Let's start with a small EC2 instance with the following characteristics:
 
 - Type `t2.micro` (free small instance)
 - Running Ubuntu
@@ -44,27 +50,34 @@ Now, clone this repository into your home directory on the instance (`/home/ubun
 git clone https://github.com/sib-swiss/AWS-docker.git
 ```
 
-First, we generate some credentials (link + password). We have prepared a tab delimited file with user information to test inside the repository at `examples/user_list_credentials.txt`. The contents of this file look like this:
+First, we generate some credentials (link + password). We have prepared a tab delimited file with user information to test inside the repository at `examples/user_list_credentials.txt`. It's just tab-delimited file with first names and last names:
 
 ```
-Jan     de Wandelaar    jan.wandel@somedomain.com       18.192.64.150
-Piet    Kopstoot        p.kopstoot@anotherdomain.ch     18.192.64.150
-Joop    Zoetemelk       joop.zoet@lekkerfietsen.nl      18.192.64.150
+Jan     de Wandelaar
+Piet    Kopstoot
+Joop    Zoetemelk
 ```
-
-The IP addresses need to be replaced with the IP v4 address of your launced instance. Do this with a text editor (e.g. `nano`). 
-
-!!! note
-    In a real case, you would prepare the user list locally after you have launced your instance (i.e. when you know your public IP). After you have generated it, you can copy the user list to the instance with e.g. `rsync` or `scp`. 
 
 Now that we have the user list ready we can generate the credentials with the script `generate_credentials`:
 
 ```sh
 cd ~/AWS-docker
-./generate_credentials -l examples/user_list_credentials.txt -o credentials -p 9001
+# [public IP address] is the public IPv4 address of your instance
+./generate_credentials \
+-l examples/user_list_credentials.txt \
+-o credentials \
+-p 9001 \
+-a [public IP address]
 ```
 
-This will generate a new directory `./credentials` with two files: `input_docker_start.txt` and `user_info.txt`. The first we will use later to start up the containers, the last contains the links and passwords that can be used to login to the web application once they are running. 
+The option `-o` specifies an output directory in which the following files are created:
+
+* `input_docker_start.txt`: A file that serves as input to deploy the docker containers on the server
+* `user_info.txt`: A file with user names, passwords and links that can be used to communicate credentials to the participants
+
+The option `-p` is used to generate an individual port for each user. Ports will be assigned in an increasing number from `-p` to each user. So, in the example above, the first user gets port 9001, the second 9002, the third 9003, etc. **Be aware that port 9000 and 10000 are reserved for the admin containers!**
+
+The option `-a` specifies the address on which the container will be hosted. This is used to generate the address per user. 
 
 ## Start an Rstudio container
 
