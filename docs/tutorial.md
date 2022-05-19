@@ -88,7 +88,7 @@ Now that we have created credentials, we can start up three containers for the t
 -i rocker/rstudio \
 -u ./credentials/input_docker_start.txt \
 -p adminpassword \
--m 1g
+-m 1g \
 -c 1
 ```
 
