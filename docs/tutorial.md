@@ -22,7 +22,7 @@ Do this by navigating to the EC2 console, and press the orange button **Launch i
 chmod 400 mykey.pem
 ```
 
-Add a security group rule by expanding **Network settings** and clicking **Add security group rule**. At **port range** specify `9000-9050`, and at **source** `0.0.0.0/0` (meaning the ports can be approached from anywhere). At **Configure storage** specify 30 Gb of gp2 storage as Root volume. To launch the instance, now click **Launch instance**. 
+Add a security group rule by clicking **Edit** at **Network settings** and clicking **Add security group rule**. At **port range** specify `9000-9050`, and at **source** `0.0.0.0/0` (meaning the ports can be approached from anywhere). At **Configure storage** specify 30 Gb of gp2 storage as Root volume. To launch the instance, now click **Launch instance**. 
 
 ## Login to the instance and install docker
 
@@ -94,7 +94,7 @@ Now that we have created credentials, we can start up three containers for the t
 
 Here, we provide the image name at `-i`. This can be any image that is based on a `rocker/rstudio` image and hosted on docker hub. At `-u` we provide the credential information that we generated in the previous step. At `-p` we specify a password that is used to login to the admin container. At `-m` the memory limit, and `-c` the cpu limit (1GB with 1 CPU because that's what we have available at our small instance). 
 
-This will start up the containers and volumes. Participants can access the containers with the link and password provided in `credentials/user_info.txt`. The admin container is available at port 9000. 
+This will start up the containers and volumes. Participants can access the containers with the link and password provided in `credentials/user_info.txt`. The admin container is available at port 9000. For the rstudio container, the username will be **rstudio**.
 
 ## Stopping containers
 
