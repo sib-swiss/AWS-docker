@@ -2,6 +2,18 @@
 
 Scripts to deploy multiple docker containers simultaneously for teaching. Below you will find the documentation. Are you new? Have a look at the [tutorial](tutorial.md)
 
+## A note on security
+
+The connections between the participant and the container will be through http, and are therefore **not** encrypted. Therefore:
+
+- No sensitive data in the hosted container
+- Do not let participants choose their own password
+- Be careful with downloading executable files
+- Do not re-use the IP of the host machine
+- (If possible) restrict the IP from which to approach the host machine
+
+We are currently developing scripts and docs on how to host containers with a reverse proxy over https. You can find it here: [https://github.com/GeertvanGeest/AWS-docker-nginx](https://github.com/GeertvanGeest/AWS-docker-nginx)
+
 ## Preparation
 
 Start an AWS EC2 instance with an Ubuntu AMI. If you are new to this, [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html) is a good place to get started. 
