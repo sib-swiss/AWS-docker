@@ -7,6 +7,13 @@ In this tutorial we will go through the following steps:
 
 The tutorial assumes that you already have an AWS account. If you haven't got one, make one [here](https://portal.aws.amazon.com/billing/signup#/start/email). 
 
+## Video
+
+!!! note
+    The video below introduces FAIR training in general. The tutorial starts at 27:00. 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-RKyu-6D0Qg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Start up an EC2 instance
 
 Let's start with a small EC2 instance with the following characteristics:
