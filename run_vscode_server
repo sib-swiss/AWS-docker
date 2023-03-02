@@ -69,6 +69,7 @@ docker run \
 -p 7000:8443 \
 --name vscode_admin \
 -e PASSWORD=$MASTERPW \
+-e SUDO_PASSWORD=$MASTERPW \
 -e PUID=1000 \
 -e PGID=1000 \
 --mount source=data,target=/data \
