@@ -11,7 +11,7 @@ In this chapter there is some general information for people (e.g. teachers/cour
 - In the container, you can find the following shared directories:
     - `/data`: read only, and shared between all running containers. This directory is used to have a single place to store data
     - `/group_work`: read and write enabled for all participants, and shared between all containers. This can be used to share data/scripts between students. This directory can be backed up. 
-    - `~/workdir`: read and write enabled, and only shared between containers assigned to the same participant. This directory can be backed up and shared as a tarball at the end of the course. 
+    - `~/project` or `~/workdir`: read and write enabled, and only shared between containers assigned to the same participant. This directory can be backed up and shared as a tarball at the end of the course. 
 - All directories other than the shared directories only exist within the container. 
 
 ## Jupyter containers
