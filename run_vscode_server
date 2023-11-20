@@ -95,8 +95,8 @@ do
   -e PASSWORD=$password \
   -e PUID=1000 \
   -e PGID=1000 \
-  -e DEFAULT_WORKSPACE=/config/workspace \
-  --mount source=$user,target=/config/workspace \
+  -e DEFAULT_WORKSPACE=/config/project \
+  --mount source=$user,target=/config/project \
   --mount source=data,target=/data,readonly \
   --mount source=group,target=/group_work \
   $IMAGE
