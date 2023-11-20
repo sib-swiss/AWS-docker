@@ -153,7 +153,7 @@ There are three volumes mounted to each container:
 
 - The volume `data` is mounted to `/data`. This volume is meant to harbour read-only data (e.g. raw data). 
 - The volume `group_work` is mounted to `/group_work`. The group volume is meant as a shared directory, where everybody can read and write.
-- Each user has a personal volume, named after the username (output of `generate_credentials`). This volume is mounted to `/home/rstudio/workdir/` for rstudio, `/home/jovyan/workdir` for jupyter, and `/config/workdir` for vscode. 
+- Each user has a personal volume, named after the username (output of `generate_credentials`). This volume is mounted to `/home/rstudio/workdir/` for rstudio, `/home/jovyan/workdir` for jupyter, and `/config/project` for vscode. 
 
 Below you can find an example of the container infrastructure. Blue squares are containers, yellow are volumes. Arrows indicate accessibility. 
 
