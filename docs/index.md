@@ -37,12 +37,12 @@ git clone https://github.com/GeertvanGeest/AWS-docker.git
 
 ## Generate credentials
 
-You can generate credentials from a tab-delimited list of users, with two columns: first name and last name. Do not use column names. Here's an example:
+You can generate credentials from a comma separated list of users, with two columns: first name and last name. Do not use column names. Here's an example:
 
 ```
-Jan	de Wandelaar
-Piet	Kopstoot
-Joop	Zoetemelk
+Jan,de Wandelaar
+Piet,Kopstoot
+Joop,Zoetemelk
 ```
 
 Run the script `generate_credentials.sh` like this (use `-l` to specify the user list):
