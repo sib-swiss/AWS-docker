@@ -57,12 +57,12 @@ Now, clone this repository into your home directory on the instance (`/home/ubun
 git clone https://github.com/sib-swiss/AWS-docker.git
 ```
 
-First, we generate some credentials (link + password). We have prepared a tab delimited file with user information to test inside the repository at `examples/user_list_credentials.txt`. It's just tab-delimited file with first names and last names:
+First, we generate some credentials (link + password). We have prepared a comma delimited file with user information to test inside the repository at `examples/user_list_credentials.txt`. It's just comma-delimited file with first names and last names:
 
 ```
-Jan     de Wandelaar
-Piet    Kopstoot
-Joop    Zoetemelk
+Jan,de Wandelaar
+Piet,Kopstoot
+Joop,Zoetemelk
 ```
 
 Now that we have the user list ready we can generate the credentials with the script `generate_credentials`:

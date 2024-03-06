@@ -37,12 +37,12 @@ git clone https://github.com/GeertvanGeest/AWS-docker.git
 
 ## Generate credentials
 
-You can generate credentials from a tab-delimited list of users, with two columns: first name and last name. Do not use column names. Here's an example:
+You can generate credentials from a comma separated list of users, with two columns: first name and last name. Do not use column names. Here's an example:
 
 ```
-Jan	de Wandelaar
-Piet	Kopstoot
-Joop	Zoetemelk
+Jan,de Wandelaar
+Piet,Kopstoot
+Joop,Zoetemelk
 ```
 
 Run the script `generate_credentials.sh` like this (use `-l` to specify the user list):
@@ -153,7 +153,7 @@ There are three volumes mounted to each container:
 
 - The volume `data` is mounted to `/data`. This volume is meant to harbour read-only data (e.g. raw data). 
 - The volume `group_work` is mounted to `/group_work`. The group volume is meant as a shared directory, where everybody can read and write.
-- Each user has a personal volume, named after the username (output of `generate_credentials`). This volume is mounted to `/home/rstudio/workdir/` for rstudio, `/home/jovyan/workdir` for jupyter, and `/config/workdir` for vscode. 
+- Each user has a personal volume, named after the username (output of `generate_credentials`). This volume is mounted to `/home/rstudio/workdir/` for rstudio, `/home/jovyan/workdir` for jupyter, and `/config/project` for vscode. 
 
 Below you can find an example of the container infrastructure. Blue squares are containers, yellow are volumes. Arrows indicate accessibility. 
 
