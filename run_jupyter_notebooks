@@ -8,7 +8,9 @@ This command generates docker containers based on a jupyter notebook container f
 -u user list. Tab delimited list of users with three columns: port, user name, password\n
 -p admin password. Password used for the admin container.\n
 -m maximum memory for the user container. Default: 16g.\n
--c maximum number of cpu for the user container. Default: 4."
+-c maximum number of cpu for the user container. Default: 4.\n
+-n container name prefix. Default: jupyter \n
+-a add admin container[yes/no]. Default: yes"
 
 while getopts ":i:u:p:m:c:" opt
 do
@@ -27,6 +29,12 @@ do
       ;;
     c)
       CPU=$OPTARG
+      ;;
+    n)
+      CONTAINER_NAME=$OPTARG
+      ;;
+    a)
+      ADD_ADMIN=$OPTARG
       ;;
     \?)
       echo -e "Invalid option: -$OPTARG \n" >&2
@@ -57,6 +65,8 @@ if [ "$MASTERPW" == "" ]; then echo "option -p is missing, but required">&2 && e
 if [ "$IMAGE" == "" ]; then IMAGE=jupyter/base-notebook; fi
 if [ "$MEMORY" == "" ]; then MEMORY=16g; fi
 if [ "$CPU" == "" ]; then CPU=4; fi
+if [ "$CONTAINER_NAME" == "" ] then CONTAINER_NAME=jupyter; fi
+if [ "$ADD_ADMIN" == "" ] then ADD_ADMIN=yes; fi
 
 # create general volume that will be populated with read-only data
 docker volume create data
@@ -71,22 +81,24 @@ docker volume create group
 
 docker volume create jovyan
 
-docker run \
--d \
---name jupyter_admin \
---mount source=jovyan,target=/home/jovyan/workdir \
---mount source=data,target=/data \
---mount source=group,target=/group_work \
---user root \
---restart=on-failure:10 \
--e NB_UMASK=002 \
--e CHOWN_EXTRA="/group_work" \
--e GRANT_SUDO=yes \
--e JUPYTER_ENABLE_LAB=yes \
--e JUPYTER_TOKEN=$MASTERPW \
--p 10000:8888 \
-$IMAGE \
-start-notebook.sh
+if [ "$ADD_ADMIN" == "yes" ] then
+  docker run \
+  -d \
+  --name "$CONTAINER_NAME"_admin \
+  --mount source=jovyan,target=/home/jovyan/workdir \
+  --mount source=data,target=/data \
+  --mount source=group,target=/group_work \
+  --user root \
+  --restart=on-failure:10 \
+  -e NB_UMASK=002 \
+  -e CHOWN_EXTRA="/group_work" \
+  -e GRANT_SUDO=yes \
+  -e JUPYTER_ENABLE_LAB=yes \
+  -e JUPYTER_TOKEN=$MASTERPW \
+  -p 10000:8888 \
+  $IMAGE \
+  start-notebook.sh
+fi
 
 # remove carriage returns and spaces and pipe to while loop
 cat $USERLIST | tr -d '\015\040' | while read port user password
@@ -105,7 +117,7 @@ do
   --cpus=$CPU \
   --memory=$MEMORY \
   --restart=on-failure:10 \
-  --name jupyter_"$user" \
+  --name "$CONTAINER_NAME"_"$user" \
   --user root \
   -e NB_UMASK=002 \
   -e CHOWN_EXTRA=/home/jovyan/workdir \
