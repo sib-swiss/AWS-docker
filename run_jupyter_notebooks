@@ -65,8 +65,8 @@ if [ "$MASTERPW" == "" ]; then echo "option -p is missing, but required">&2 && e
 if [ "$IMAGE" == "" ]; then IMAGE=jupyter/base-notebook; fi
 if [ "$MEMORY" == "" ]; then MEMORY=16g; fi
 if [ "$CPU" == "" ]; then CPU=4; fi
-if [ "$CONTAINER_NAME" == "" ] then CONTAINER_NAME=jupyter; fi
-if [ "$ADD_ADMIN" == "" ] then ADD_ADMIN=yes; fi
+if [ "$CONTAINER_NAME" == "" ]; then CONTAINER_NAME=jupyter; fi
+if [ "$ADD_ADMIN" == "" ]; then ADD_ADMIN=yes; fi
 
 # create general volume that will be populated with read-only data
 docker volume create data
@@ -81,7 +81,8 @@ docker volume create group
 
 docker volume create jovyan
 
-if [ "$ADD_ADMIN" == "yes" ] then
+if [ "$ADD_ADMIN" == "yes" ] 
+then
   docker run \
   -d \
   --name "$CONTAINER_NAME"_admin \
