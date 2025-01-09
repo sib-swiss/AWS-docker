@@ -10,9 +10,10 @@ This command generates docker containers based on a jupyter notebook container f
 -m maximum memory for the user container. Default: 16g.\n
 -c maximum number of cpu for the user container. Default: 4.\n
 -n container name prefix. Default: jupyter \n
--a add admin container[yes/no]. Default: yes"
+-a add admin container[yes/no]. Default: yes \n
+-d add an additional port at port-2000 [yes/no]. Default: no"
 
-while getopts ":i:u:p:m:c:n:a:" opt
+while getopts ":i:u:p:m:c:n:a:d:" opt
 do
   case $opt in
     i)
@@ -35,6 +36,9 @@ do
       ;;
     a)
       ADD_ADMIN=$OPTARG
+      ;;
+    d)
+      ADD_PORT=$OPTARG
       ;;
     \?)
       echo -e "Invalid option: -$OPTARG \n" >&2
@@ -67,6 +71,7 @@ if [ "$MEMORY" == "" ]; then MEMORY=16g; fi
 if [ "$CPU" == "" ]; then CPU=4; fi
 if [ "$CONTAINER_NAME" == "" ]; then CONTAINER_NAME=jupyter; fi
 if [ "$ADD_ADMIN" == "" ]; then ADD_ADMIN=yes; fi
+if [ "$ADD_PORT" == "" ]; then ADD_PORT=no; fi
 
 # create general volume that will be populated with read-only data
 docker volume create data
@@ -113,6 +118,13 @@ do
   # generate container for each user
   # mount user volume, data volume (general, read only) and group work volume (general, read and write)
   # the permissions of general volumes (data and group work) need to be changed with the master container (this can probably be coded as well)
+  if [ "$ADD_PORT" == "yes" ]
+  then 
+        ADD_PORT="-p $((port-2000)):$((port-2000))"
+  else
+        ADD_PORT=""
+  fi 
+
   docker run \
   -d \
   --cpus=$CPU \
@@ -128,7 +140,7 @@ do
   -e JUPYTER_ENABLE_LAB=yes \
   -e JUPYTER_TOKEN=$password \
   -p $port:8888 \
-  -p $((port-2000)):$((port-2000)) \
+  "$ADD_PORT" \
   $IMAGE \
   start-notebook.sh
 done
