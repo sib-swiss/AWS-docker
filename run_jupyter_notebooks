@@ -125,8 +125,6 @@ do
         ADD_PORT=""
   fi 
 
-  echo "ADD_PORT variable: $ADD_PORT"
-
   docker run \
   -d \
   --cpus=$CPU \
