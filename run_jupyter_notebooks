@@ -127,7 +127,7 @@ do
 
   echo "ADD_PORT variable: $ADD_PORT"
 
-  docker_cmd="docker run \
+  docker run \
   -d \
   --cpus=$CPU \
   --memory=$MEMORY \
@@ -142,10 +142,9 @@ do
   -e JUPYTER_ENABLE_LAB=yes \
   -e JUPYTER_TOKEN=$password \
   -p $port:8888 \
-  "$ADD_PORT" \
+  $ADD_PORT \
   $IMAGE \
-  start-notebook.sh"
-echo $docker_cmd
+  start-notebook.sh
 done
 
 # stop all containers:
