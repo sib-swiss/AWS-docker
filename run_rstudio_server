@@ -8,9 +8,11 @@ This command generates docker containers based on a rstudio server container for
 -u user list. Tab delimited list of users with three columns: port, user name, password\n
 -p admin password. Password used for the admin container.\n
 -m maximum memory for the user container. Default: 16g.\n
--c maximum number of cpu for the user container. Default: 4."
+-c maximum number of cpu for the user container. Default: 4.
+-n container name prefix. Default: jupyter \n
+-a add admin container[yes/no]. Default: yes \n"
 
-while getopts ":i:u:p:m:c:" opt
+while getopts ":i:u:p:m:c:n:a:" opt
 do
   case $opt in
     i)
@@ -27,6 +29,12 @@ do
       ;;
     c)
       CPU=$OPTARG
+      ;;
+    n)
+      CONTAINER_NAME=$OPTARG
+      ;;
+    a)
+      ADD_ADMIN=$OPTARG
       ;;
     \?)
       echo -e "Invalid option: -$OPTARG \n" >&2
@@ -57,21 +65,26 @@ if [ "$MASTERPW" == "" ]; then echo "option -p is missing, but required">&2 && e
 if [ "$IMAGE" == "" ]; then IMAGE=rocker/rstudio; fi
 if [ "$MEMORY" == "" ]; then MEMORY=16g; fi
 if [ "$CPU" == "" ]; then CPU=4; fi
+if [ "$CONTAINER_NAME" == "" ]; then CONTAINER_NAME=rstudio; fi
+if [ "$ADD_ADMIN" == "" ]; then ADD_ADMIN=yes; fi
 
 # create general volume that will be populated with read-only data
 docker volume create data
 # create general volume for group work
 docker volume create group
 
-docker run \
--d \
--e ROOT=TRUE \
--p 9000:8787 \
---name rstudio_admin \
--e PASSWORD=$MASTERPW \
---mount source=data,target=/home/rstudio/data \
---mount source=group,target=/group_work \
-$IMAGE
+if [ "$ADD_ADMIN" == "yes" ] 
+then
+  docker run \
+  -d \
+  -e ROOT=TRUE \
+  -p 9000:8787 \
+  --name rstudio_admin \
+  -e PASSWORD=$MASTERPW \
+  --mount source=data,target=/home/rstudio/data \
+  --mount source=group,target=/group_work \
+  $IMAGE
+fi
 
 # remove carriage returns and spaces and pipe to while loop
 cat $USERLIST | tr -d '\015\040' | while read port user password
@@ -89,6 +102,7 @@ do
   --cpus=$CPU \
   --memory=$MEMORY \
   --restart=on-failure:10 \
+  --name "$CONTAINER_NAME"_"$user" \
   -p $port:8787 \
   --name rstudio_"$user" \
   -e PASSWORD=$password \
